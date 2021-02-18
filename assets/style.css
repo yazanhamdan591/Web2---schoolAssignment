@@ -1,0 +1,16 @@
+body {
+    background-color: #343a40;
+    color: white;
+    line-height: 1.7;
+    font-size: 1rem;
+    font-weight: 300;
+    font-family: "Nunito", "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+.activeForm{
+    display:block;
+}
+
+.disableForm{
+    display:none;
+}

@@ -8,6 +8,7 @@ var students = [],
 	classes_List = "col-4 p-2 d-flex justify-content-center align-items-center flex-column";
 
 
+//Form button (Insert / delete / update)
 formButton.addEventListener('click', () => {
 	if(form_number == 0){
 
@@ -17,6 +18,7 @@ formButton.addEventListener('click', () => {
 
 	// Validation for input
 	inputValidation(nameInputEl.value, idInputEl.value, gdpaInputEl.value);
+
 	// ID must be unique 
 	if(findStudent(idInputEl.value) == -1){
 		// insert student
@@ -25,6 +27,7 @@ formButton.addEventListener('click', () => {
 		nameInputEl.value = "";
 		idInputEl.value = "";
 		gdpaInputEl.value = "";
+
 	} else {
 		//deny request	
 		alert("Student with ID : " + idInputEl.value + " already exist")
@@ -41,14 +44,15 @@ formButton.addEventListener('click', () => {
 			deleteStudentInterface(studentIDDelete.value);
 
 			studentIDDelete.value = "";
+
 		} else{
 			alert('Student with ID : ' + studentIDDelete.value + ' doesn\'t exist');
 		}
 
 	} else {
-		let studentNameUpdate = document.getElementById('studentName_update');
-		let studentIDUpdate = document.getElementById('studentID_Update');
-		let studentGPAUpdate = document.getElementById('studentGPA_update');
+		let studentNameUpdate = document.getElementById('studentName_update'),
+			studentIDUpdate = document.getElementById('studentID_Update'),
+			studentGPAUpdate = document.getElementById('studentGPA_update');
 
 		inputValidation(studentNameUpdate.value , studentIDUpdate.value , studentGPAUpdate.value);
 		let temp = findStudent(studentIDUpdate.value)
@@ -66,6 +70,8 @@ formButton.addEventListener('click', () => {
 	}
 });
 
+
+//Next button
 goNextButton.addEventListener('click' , () =>{
 	if(form_number == 0){
 
@@ -96,6 +102,8 @@ goNextButton.addEventListener('click' , () =>{
 	}
 })
 
+
+// Back button 
 goBackButton.addEventListener('click' ,()=>{
 	if(form_number == 2){
 		goBackButton.innerText = "Go back to Insert form";

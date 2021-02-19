@@ -3,7 +3,9 @@ var students = [],
 	goBackButton = document.getElementById("goBack"),
 	forms = document.getElementsByClassName("Form"),
 	formButton = document.getElementById("formButton")
-	form_number = 0;
+	form_number = 0,
+	student_info = document.getElementById("student-info"),
+	classes_List = "col-4 p-2 d-flex justify-content-center align-items-center flex-column";
 
 
 formButton.addEventListener('click', () => {
@@ -20,6 +22,9 @@ formButton.addEventListener('click', () => {
 		// insert student
 		insertStudent(nameInputEl.value, idInputEl.value, gdpaInputEl.value);
 
+		nameInputEl.value = "";
+		idInputEl.value = "";
+		gdpaInputEl.value = "";
 	} else {
 		//deny request	
 		alert("Student with ID : " + idInputEl.value + " already exist")
@@ -31,8 +36,11 @@ formButton.addEventListener('click', () => {
 		inputValidation(studentIDDelete.value);
 		let temp = findStudent(studentIDDelete.value);
 
-		if(temp != -1){
+		if(temp != -1){		
 			deleteStudent(temp);
+			deleteStudentInterface(studentIDDelete.value);
+
+			studentIDDelete.value = "";
 		} else{
 			alert('Student with ID : ' + studentIDDelete.value + ' doesn\'t exist');
 		}
@@ -47,6 +55,11 @@ formButton.addEventListener('click', () => {
 
 		if(temp != -1){
 			updateStudent(temp , studentNameUpdate.value , studentGPAUpdate.value);
+			updateStudentInterface(studentIDUpdate.value ,studentNameUpdate.value, studentGPAUpdate.value);
+
+			studentNameUpdate.value = "";
+			studentIDUpdate.value = "";
+			studentGPAUpdate.value = "";
 		} else{
 			alert('Student with ID : ' + studentIDUpdate.value + ' doesn\'t exist');
 		}
@@ -147,7 +160,25 @@ function insertStudent(name, id, gdpa) {
 		gdpa: gdpa,
 	};
 	students.push(student);
-    console.log('students array: ', students);
+
+	let student_name_element = document.createElement("div"),
+		student_id_element = document.createElement("div"),
+		student_GPA_element = document.createElement("div"),
+		student_row = document.createElement("div");
+
+		student_row.className = "row";
+
+		student_name_element.className = classes_List;
+		student_name_element.innerText = name;
+
+		student_id_element.className = classes_List;
+		student_id_element.innerText = id;
+
+		student_GPA_element.className = classes_List;
+		student_GPA_element.innerText = gdpa;
+
+		student_info.appendChild(student_row);
+		student_row.append(student_id_element , student_name_element ,student_GPA_element );
 }
 
 function findStudent(p_id){
@@ -160,12 +191,28 @@ function findStudent(p_id){
 
 function deleteStudent(st_location){
 	students.splice(st_location, 1);
-	console.log("students after deleting a student : " , students);
+}
+
+function deleteStudentInterface(st_id){
+	for(student of student_info.children){
+		if(student.children[0].innerText == st_id ){
+			student.remove();
+			break;
+		}
+	}
 }
 
 function updateStudent(st_location , st_name , st_Gpa){
 	students[st_location].name = st_name;
 	students[st_location].gdpa = st_Gpa;
+}
 
-	console.log("students after Updating a student : " , students);
+function updateStudentInterface(st_id , st_new_name , st_new_gpa){
+	for(student of student_info.children){
+		if(student.children[0].innerText == st_id ){
+			student.children[1].innerText = st_new_name;
+			student.children[2].innerText = st_new_gpa;
+			break;
+		}
+	}
 }

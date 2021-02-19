@@ -14,3 +14,11 @@ body {
 .disableForm{
     display:none;
 }
+
+.student-list-holder{
+    background-color: rgb(49, 49, 49);
+}
+
+.student-headers{
+    background-color: #343a40;
+}
